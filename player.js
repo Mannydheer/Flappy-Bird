@@ -14,4 +14,13 @@ class Player {
     //creating player.
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
+
+  update(deltaTime) {
+    //velocity =  deltaDistance/deltaTime
+    if (this.position.x < GAME_WIDTH - 50) {
+      // this.position.x += 5 / deltaTime;
+    } else {
+      // this.position.x = GAME_WIDTH / 2;
+    }
+  }
 }
