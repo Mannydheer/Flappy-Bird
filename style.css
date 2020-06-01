@@ -1,3 +1,7 @@
 .canvas {
   border: solid 1px black;
 }
+
+#image {
+  background: url("/SpriteImages/terrain_atlas.png") 24px 60px;
+}
