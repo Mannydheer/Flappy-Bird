@@ -11,19 +11,29 @@ let gameEngine = new Engine();
 //player class.
 let player = gameEngine.player;
 let lastTime;
+
 //-------------------GAME LOOP-------------------
 const gameLoop = (timeStamp) => {
   ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
   //time for
   let deltaTime = timeStamp - lastTime;
   lastTime = timeStamp;
+  //make out player.
   player.draw(ctx);
   player.update(deltaTime);
+  player.updateGravity(deltaTime, gameEngine.gravity);
+  gameEngine.drawObject();
+
   window.requestAnimationFrame(gameLoop);
 };
 window.requestAnimationFrame(gameLoop);
 
-// ----------------SPRITES ---------------------
-// let tree = (document.getElementById(
-//   "image"
-// ).style.backgroundPosition = `-256px 0px`);
+//EVENT LISTNERE.
+const handleKeyEvent = (e) => {
+  if (e.code === "Space") {
+    player.moveUp();
+  }
+};
+window.addEventListener("keypress", handleKeyEvent);
+
+//Handle all key events.
