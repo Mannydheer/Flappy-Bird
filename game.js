@@ -30,7 +30,11 @@ const gameLoop = (timeStamp) => {
 
   window.requestAnimationFrame(gameLoop);
 };
-window.requestAnimationFrame(gameLoop);
+const init = () => {
+  window.requestAnimationFrame(gameLoop);
+};
+
+init();
 
 //EVENT LISTNERE.
 const handleKeyEvent = (e) => {
@@ -44,13 +48,15 @@ window.addEventListener("keypress", handleKeyEvent);
 
 const handleCollisions = () => {
   let pipeDiff = GAME_HEIGHT - pipe.pipeDimensions.bottomHeight * -1;
-  console.log(pipe.position.x, "PIPE X");
-  console.log(player.position.x, "PLAYER X");
+  console.log(pipeDiff, "PIPE");
+  console.log(player.position.y, "PLAYER");
 
-  if (pipe.position.x === player.position.x && pipeDiff === player.position.y) {
-    window.alert("hit");
+  if (
+    player.position.x >= pipe.position.x &&
+    player.position.x <= pipe.position.x + 50 &&
+    player.position.y <= GAME_HEIGHT &&
+    player.position.y + 50 > pipeDiff
+  ) {
+    window.cancelAnimationFrame();
   }
-  // if (pipeDiff === player.position.y - 50) {
-  //   window.alert("hit again");
-  // }
 };

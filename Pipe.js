@@ -33,7 +33,7 @@ class Pipe extends Engine {
   }
   updatePipeMovement(deltaTime) {
     if (this.position.x + 50 > 0) {
-      (this.position.x -= 3) / deltaTime;
+      (this.position.x -= 5) / deltaTime;
     } else {
       this.position.x = GAME_WIDTH - 50;
       this.pipeDimensions.bottomHeight = -randomGenerator(200, 100);
