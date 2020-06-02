@@ -3,7 +3,7 @@ class Player {
     (this.width = 50),
       (this.height = 50),
       (this.position = {
-        x: GAME_WIDTH / 2,
+        x: (GAME_WIDTH - 50) / 2,
         y: GAME_HEIGHT / 2,
       });
   }
@@ -15,26 +15,17 @@ class Player {
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
-  update(deltaTime) {
-    //velocity =  deltaDistance/deltaTime
-    if (this.position.x < GAME_WIDTH - 50) {
-      // this.position.x += 5 / deltaTime;
-    } else {
-      // this.position.x = GAME_WIDTH / 2;
-    }
-  }
-
   updateGravity(deltaTime, gravity) {
-    if (this.position.y < GAME_HEIGHT) {
-      this.position.y += gravity / deltaTime;
+    // boundary for x.
+    if (this.position.y < GAME_HEIGHT - 50) {
+      (this.position.y += gravity) / deltaTime;
     } else {
       this.position.y = GAME_HEIGHT / 2;
     }
     //add error for when he passes the point.
   }
 
-  moveUp(deltaTime) {
-    console.log(this.position.y);
-    this.position.y -= 30;
+  moveUp() {
+    this.position.y -= 50;
   }
 }

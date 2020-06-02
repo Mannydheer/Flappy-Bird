@@ -8,6 +8,7 @@ var canvas = document.getElementById("gameCanvas");
 //rendering context to draw to the element.
 var ctx = canvas.getContext("2d");
 let gameEngine = new Engine();
+let pipe = new Pipe();
 //player class.
 let player = gameEngine.player;
 let lastTime;
@@ -20,9 +21,12 @@ const gameLoop = (timeStamp) => {
   lastTime = timeStamp;
   //make out player.
   player.draw(ctx);
-  player.update(deltaTime);
   player.updateGravity(deltaTime, gameEngine.gravity);
-  gameEngine.drawObject();
+  pipe.drawPipes(ctx);
+  pipe.updatePipeMovement(deltaTime);
+
+  //COLLISIONS.
+  handleCollisions();
 
   window.requestAnimationFrame(gameLoop);
 };
@@ -37,3 +41,16 @@ const handleKeyEvent = (e) => {
 window.addEventListener("keypress", handleKeyEvent);
 
 //Handle all key events.
+
+const handleCollisions = () => {
+  let pipeDiff = GAME_HEIGHT - pipe.pipeDimensions.bottomHeight * -1;
+  console.log(pipe.position.x, "PIPE X");
+  console.log(player.position.x, "PLAYER X");
+
+  if (pipe.position.x === player.position.x && pipeDiff === player.position.y) {
+    window.alert("hit");
+  }
+  // if (pipeDiff === player.position.y - 50) {
+  //   window.alert("hit again");
+  // }
+};
