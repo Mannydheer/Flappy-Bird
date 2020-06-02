@@ -17,6 +17,7 @@ let ctx = canvas.getContext("2d");
 var requestId = null;
 let gameEngine = new Engine();
 let pipe = new Pipe();
+
 let player = gameEngine.player;
 let lastTime;
 
@@ -52,14 +53,19 @@ window.addEventListener("keypress", handleKeyEvent);
 //Handle all key events.
 
 const handleCollisions = () => {
-  let pipeDiff = GAME_HEIGHT - pipe.pipeDimensions.bottomHeight * -1;
+  let bottomPipeHeight = GAME_HEIGHT - pipe.pipeDimensions.bottomHeight * -1;
+
   if (
-    player.position.x >= pipe.position.x - 50 &&
-    player.position.x <= pipe.position.x + 50 &&
-    player.position.y <= GAME_HEIGHT &&
-    player.position.y + 50 > pipeDiff
+    (player.position.x >= pipe.position.x - 50 &&
+      player.position.x - 50 <= pipe.position.x &&
+      player.position.y <= GAME_HEIGHT &&
+      player.position.y + 50 >= bottomPipeHeight) ||
+    //TOP
+    (player.position.x >= pipe.position.x - 50 &&
+      player.position.x - 50 <= pipe.position.x &&
+      player.position.y <= pipe.pipeDimensions.topHeight &&
+      player.position.y >= 0)
   ) {
-    // cancelAnimationFrame(requestId);
     gameEngine.pauseGame();
   }
 };

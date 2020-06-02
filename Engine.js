@@ -1,7 +1,7 @@
 class Engine {
   constructor() {
     this.player = new Player(GAME_WIDTH, GAME_HEIGHT);
-    this.gravity = 2;
+    this.gravity = 0.5;
     this.gameRunning = true;
   }
 
