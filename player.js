@@ -26,6 +26,6 @@ class Player {
   }
 
   moveUp() {
-    this.position.y -= 65;
+    this.position.y -= 50;
   }
 }

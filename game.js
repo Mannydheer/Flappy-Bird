@@ -4,12 +4,19 @@
 
 //Just using a simple boolean is not efficient because it doesn't take into account the different
 //speeds that a computer can run the program.
-var canvas = document.getElementById("gameCanvas");
+let requestAnimationFrame =
+  window.requestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.msRequestAnimationFrame;
+let cancelAnimationFrame =
+  window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+let canvas = document.getElementById("gameCanvas");
 //rendering context to draw to the element.
-var ctx = canvas.getContext("2d");
+let ctx = canvas.getContext("2d");
+var requestId = null;
 let gameEngine = new Engine();
 let pipe = new Pipe();
-//player class.
 let player = gameEngine.player;
 let lastTime;
 
@@ -27,14 +34,12 @@ const gameLoop = (timeStamp) => {
 
   //COLLISIONS.
   handleCollisions();
-
-  window.requestAnimationFrame(gameLoop);
-};
-const init = () => {
-  window.requestAnimationFrame(gameLoop);
+  if (gameEngine.gameRunning) {
+    requestId = requestAnimationFrame(gameLoop);
+  }
 };
 
-init();
+requestId = requestAnimationFrame(gameLoop);
 
 //EVENT LISTNERE.
 const handleKeyEvent = (e) => {
@@ -48,15 +53,20 @@ window.addEventListener("keypress", handleKeyEvent);
 
 const handleCollisions = () => {
   let pipeDiff = GAME_HEIGHT - pipe.pipeDimensions.bottomHeight * -1;
-  console.log(pipeDiff, "PIPE");
-  console.log(player.position.y, "PLAYER");
-
   if (
-    player.position.x >= pipe.position.x &&
+    player.position.x >= pipe.position.x - 50 &&
     player.position.x <= pipe.position.x + 50 &&
     player.position.y <= GAME_HEIGHT &&
     player.position.y + 50 > pipeDiff
   ) {
-    window.cancelAnimationFrame();
+    // cancelAnimationFrame(requestId);
+    gameEngine.pauseGame();
   }
 };
+const restartGame = () => {
+  gameEngine.restartGame();
+};
+
+let restart = document.getElementById("restart");
+restart.innerHTML = "Restart?";
+restart.addEventListener("click", restartGame);
