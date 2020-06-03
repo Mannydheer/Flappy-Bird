@@ -10,15 +10,14 @@ class Pipe extends Engine {
       bottomPipe: -randomGenerator(200, 100),
       topPipe: randomGenerator(200, 100),
     };
+    this.bottomPipeImage = document.getElementById("bottomPipe");
+    this.topPipeImage = document.getElementById("topPipe");
   }
 
   //display background.
   drawPipes(ctx) {
-    let image = document.getElementById("bottomPipe");
-    let topImage = document.getElementById("topPipe");
-
     ctx.drawImage(
-      image,
+      this.bottomPipeImage,
       0,
       0,
       this.pipeDimensions.width,
@@ -28,14 +27,13 @@ class Pipe extends Engine {
       50,
       this.pipeDimensions.bottomPipe
     );
-    //rotate.
 
     ctx.drawImage(
-      topImage,
+      this.topPipeImage,
       0,
       0,
       this.pipeDimensions.width,
-      250,
+      350,
       this.position.x,
       this.position.y,
       50,
@@ -43,7 +41,7 @@ class Pipe extends Engine {
     );
   }
   updatePipeMovement(deltaTime) {
-    (this.position.x -= 1) / deltaTime;
+    (this.position.x -= 2) / deltaTime;
     if (this.position.x <= 0) {
       this.createPipe();
     }

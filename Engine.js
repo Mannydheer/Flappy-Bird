@@ -1,16 +1,18 @@
 class Engine {
-  constructor() {
+  constructor(gameApp) {
     this.player = new Player(GAME_WIDTH, GAME_HEIGHT);
-    this.gravity = 1;
+    this.gravity = 0.9;
     this.gameRunning = true;
     this.scoreCounter = 0;
+    this.gameOverImage = document.getElementById("gameover");
+    this.gameApp = gameApp;
   }
 
   drawBackground(ctx, backgroundImage) {
     ctx.drawImage(backgroundImage, 0, 0, 200, 500, 0, 0, 700, 500);
   }
 
-  pauseGame() {
+  endGame() {
     this.gameRunning = false;
   }
 
@@ -42,9 +44,10 @@ class Engine {
     } else {
       array = [this.scoreCounter];
     }
-    console.log(array);
-
     localStorage.setItem("score", JSON.stringify(array));
+  }
+  gameOver(ctx) {
+    ctx.drawImage(this.gameOverImage, 0, 0);
   }
 
   //Just using a simple boolean is not efficient because it doesn't take into account the different

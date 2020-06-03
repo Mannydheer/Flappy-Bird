@@ -7,7 +7,7 @@ let canvas = document.getElementById("gameCanvas");
 //rendering context to draw to the element.
 let ctx = canvas.getContext("2d");
 //Engine instantiatio
-let gameEngine = new Engine();
+let gameEngine = new Engine(document.getElementById("gameApp"));
 //Pipe instantiation
 let pipe = new Pipe(GAME_WIDTH);
 let pipe1 = new Pipe(GAME_WIDTH + 200);
@@ -19,7 +19,6 @@ let player = gameEngine.player;
 let lastTime;
 //background.
 let backgroundImage = document.getElementById("background");
-
 const gameLoop = (timeStamp) => {
   ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
   //backgorund.
@@ -44,18 +43,23 @@ const gameLoop = (timeStamp) => {
   handleCollisions();
   if (gameEngine.gameRunning) {
     requestAnimationFrame(gameLoop);
+  } else {
+    //gameOvermessage.
+    gameEngine.gameOver(ctx);
+    handleRestartButton();
   }
 };
 requestAnimationFrame(gameLoop);
+//------------------------EVENTLISTENER---------------
 //FUNCTION TRIGGERED FROM EVENT LISTENER.
 const handleKeyEvent = (e) => {
   if (e.code === "Space") {
     player.moveUp();
   }
 };
-//EVENT LISTENER FOR WINDOW.
 window.addEventListener("keypress", handleKeyEvent);
 
+//---------------------COLLISIONS---------------------
 //CHECKING FOR COLLISIONS WITH PIPE.
 //give the array the same name as the pipe instantiations above.
 let pipeArray = [pipe, pipe1, pipe2];
@@ -76,8 +80,10 @@ const handleCollisions = () => {
         player.position.y >= 0)
     ) {
       //IF THERE IS A COLLUSION.
-      gameEngine.pauseGame();
+      gameEngine.endGame(); //bool will be false
+      //update score to local storage.
       gameEngine.updateLocalStorage();
+      //show Gameover button.
     }
     //When the X position is equal to the any of the pipes, it will increment by one.
     else if (player.position.x === pipe.position.x) {
@@ -85,19 +91,23 @@ const handleCollisions = () => {
     }
   });
 };
+
 //------------------RESTART-----------------
 const restartGame = () => {
   gameEngine.restartGame();
 };
-let restart = document.getElementById("restart");
-restart.innerHTML = "Restart?";
-restart.addEventListener("click", restartGame);
+const handleRestartButton = () => {
+  let restart = document.createElement("button");
+  restart.id = "restart";
+  gameEngine.gameApp.appendChild(restart);
+  restart.innerHTML = "Restart?";
+  restart.addEventListener("click", restartGame);
+};
 
 // ------------- SCOREBOARD.-------------------
 let score = document.createElement("div");
 score.id = "scoreBoard";
-let gameApp = document.getElementById("gameApp");
-gameApp.appendChild(score);
+gameEngine.gameApp.appendChild(score);
 //handle score incrementing.
 const handleScoreBoard = () => {
   score.innerText = `CurrentScore: ${gameEngine.scoreCounter}`;
@@ -105,7 +115,7 @@ const handleScoreBoard = () => {
 //---------------GET PREVIOUS SCORE. -------------------
 let previousScore = document.createElement("div");
 previousScore.id = "previousScore";
-gameApp.appendChild(previousScore);
+gameEngine.gameApp.appendChild(previousScore);
 const handlePreviousScore = () => {
   previousScore.innerText = `PreviousScore: ${gameEngine.getPreviousScore()}`;
 };

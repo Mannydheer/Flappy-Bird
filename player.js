@@ -6,14 +6,13 @@ class Player {
         x: (GAME_WIDTH - 50) / 2,
         y: GAME_HEIGHT / 2,
       });
+    this.playerImage = document.getElementById("player");
   }
 
   draw(ctx) {
     //this will make our player.
-    let playerImage = document.getElementById("player");
-
     ctx.drawImage(
-      playerImage,
+      this.playerImage,
       0,
       0,
       this.width,
