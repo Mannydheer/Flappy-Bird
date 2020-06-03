@@ -1,44 +1,44 @@
 class Pipe extends Engine {
-  constructor() {
+  constructor(posX) {
     super();
     this.position = {
-      x: GAME_WIDTH - 50,
+      x: posX,
       y: 0,
     };
     this.pipeDimensions = {
       width: 50,
-      bottomHeight: -randomGenerator(200, 100),
-      topHeight: randomGenerator(200, 100),
+      bottomPipe: -randomGenerator(200, 100),
+      topPipe: randomGenerator(200, 100),
     };
   }
 
   //display background.
   drawPipes(ctx) {
-    Engine.prototype.ctx = ctx;
     ctx.fillStyle = "green";
     //top pipe
     ctx.fillRect(
       this.position.x,
       this.position.y,
       this.pipeDimensions.width,
-      this.pipeDimensions.topHeight
+      this.pipeDimensions.topPipe
     );
     //bottom pipe.
     ctx.fillRect(
       this.position.x,
       GAME_HEIGHT,
       this.pipeDimensions.width,
-      this.pipeDimensions.bottomHeight
+      this.pipeDimensions.bottomPipe
     );
   }
   updatePipeMovement(deltaTime) {
-    if (this.position.x > GAME_WIDTH / 2) {
-      (this.position.x -= 1) / deltaTime;
-    } else {
-      this.position.x = GAME_WIDTH - 50;
-      this.pipeDimensions.bottomHeight = -randomGenerator(200, 100);
-      this.pipeDimensions.topHeight = randomGenerator(200, 100);
-    }
+    (this.position.x -= 1) / deltaTime;
+  }
+
+  createPipe() {
+    this.position.x = GAME_WIDTH - 50;
+    //create a new pipe with random top and bottom heights.
+    this.pipeDimensions.bottomPipe = -randomGenerator(200, 100);
+    this.pipeDimensions.topPipe = randomGenerator(200, 100);
   }
 }
 

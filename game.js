@@ -1,27 +1,20 @@
-// var canvas = document.getElementById("gameCanvas");
-// //rendering context to draw to the element.
-// var ctx = canvas.getContext("2d");
-
-//Just using a simple boolean is not efficient because it doesn't take into account the different
-//speeds that a computer can run the program.
 let requestAnimationFrame =
   window.requestAnimationFrame ||
   window.mozRequestAnimationFrame ||
   window.webkitRequestAnimationFrame ||
   window.msRequestAnimationFrame;
-let cancelAnimationFrame =
-  window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+
 let canvas = document.getElementById("gameCanvas");
 //rendering context to draw to the element.
 let ctx = canvas.getContext("2d");
-var requestId = null;
+//Engine instantiatio
 let gameEngine = new Engine();
-let pipe = new Pipe();
-
+//Pipe instantiation
+let pipe = new Pipe(GAME_WIDTH - 50);
+//Player instantiation.
 let player = gameEngine.player;
-let lastTime;
-
 //-------------------GAME LOOP-------------------
+let lastTime;
 const gameLoop = (timeStamp) => {
   ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
   //time for
@@ -36,43 +29,49 @@ const gameLoop = (timeStamp) => {
   //COLLISIONS.
   handleCollisions();
   if (gameEngine.gameRunning) {
-    requestId = requestAnimationFrame(gameLoop);
+    requestAnimationFrame(gameLoop);
   }
 };
+requestAnimationFrame(gameLoop);
 
-requestId = requestAnimationFrame(gameLoop);
-
-//EVENT LISTNERE.
+//FUNCTION TRIGGERED FROM EVENT LISTENER.
 const handleKeyEvent = (e) => {
   if (e.code === "Space") {
     player.moveUp();
   }
 };
+//EVENT LISTENER FOR WINDOW.
 window.addEventListener("keypress", handleKeyEvent);
 
-//Handle all key events.
-
+//CHECKING FOR COLLISIONS WITH PIPE.
 const handleCollisions = () => {
-  let bottomPipeHeight = GAME_HEIGHT - pipe.pipeDimensions.bottomHeight * -1;
-
+  let bottomPipeHeight = GAME_HEIGHT - pipe.pipeDimensions.bottomPipe * -1;
   if (
+    //BOTTOM PIPE COLLISION.
     (player.position.x >= pipe.position.x - 50 &&
       player.position.x - 50 <= pipe.position.x &&
       player.position.y <= GAME_HEIGHT &&
       player.position.y + 50 >= bottomPipeHeight) ||
-    //TOP
+    //TOP PIPE COLLISION
     (player.position.x >= pipe.position.x - 50 &&
       player.position.x - 50 <= pipe.position.x &&
-      player.position.y <= pipe.pipeDimensions.topHeight &&
+      player.position.y <= pipe.pipeDimensions.topPipe &&
       player.position.y >= 0)
   ) {
+    //IF THERE IS A COLLUSION.
     gameEngine.pauseGame();
   }
 };
+
+//------------------RESTART-----------------
 const restartGame = () => {
   gameEngine.restartGame();
 };
-
 let restart = document.getElementById("restart");
 restart.innerHTML = "Restart?";
 restart.addEventListener("click", restartGame);
+
+// ------------- CREATING  A PIPE.-------------------
+setInterval(() => {
+  pipe.createPipe();
+}, 7000);
