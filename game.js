@@ -4,7 +4,6 @@ let requestAnimationFrame =
   window.webkitRequestAnimationFrame ||
   window.msRequestAnimationFrame;
 
-
 let canvas = document.getElementById("gameCanvas");
 //rendering context to draw to the element.
 let ctx = canvas.getContext("2d");
@@ -15,7 +14,7 @@ let pipe = new Pipe(GAME_WIDTH);
 let pipe1 = new Pipe(GAME_WIDTH + 200);
 let pipe2 = new Pipe(GAME_WIDTH + 400);
 //Player instantiation.
-let player = gameEngine.player;
+let player = new Player(GAME_WIDTH, GAME_HEIGHT, gameEngine.gravity);
 //GET PREVIOUS SCORE.
 //-------------------GAME LOOP-------------------
 let lastTime;
@@ -46,7 +45,7 @@ const gameLoop = (timeStamp) => {
 
   //COLLISIONS.
   handleCollisions();
-  // controller for the game if running 
+  // controller for the game if running
   if (gameEngine.gameRunning) {
     requestAnimationFrame(gameLoop);
   } else {

@@ -1,7 +1,6 @@
 class Engine {
   constructor(gameApp) {
     this.gravity = 0.1;
-    this.player = new Player(GAME_WIDTH, GAME_HEIGHT, this.gravity);
     this.gameRunning = true;
     this.scoreCounter = 0;
     this.gameOverImage = document.getElementById("gameover");
@@ -11,14 +10,14 @@ class Engine {
   drawBackground(ctx, backgroundImage) {
     ctx.drawImage(backgroundImage, 0, 0, 200, 500, 0, 0, 700, 500);
   }
-  
+
   // change constructor property using setter
-  set end(bool){
-    this.gameRunning = bool;
-  }
-  // change constructor property using function 
+  // set end(bool){
+  //   this.gameRunning = bool;
+  // }
+  // change constructor property using function
   endGame() {
-    // request animation will stop running 
+    // request animation will stop running
     this.gameRunning = false;
   }
 
