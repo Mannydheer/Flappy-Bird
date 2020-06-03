@@ -28,6 +28,8 @@ const gameLoop = (timeStamp) => {
   let deltaTime = timeStamp - lastTime;
   lastTime = timeStamp;
   //PIPE.
+  console.log(player.velocity);
+
   player.draw(ctx);
   player.updateGravity(deltaTime, gameEngine.gravity);
   pipe.drawPipes(ctx);
@@ -58,7 +60,6 @@ const handleKeyEvent = (e) => {
   }
 };
 window.addEventListener("keypress", handleKeyEvent);
-
 //---------------------COLLISIONS---------------------
 //CHECKING FOR COLLISIONS WITH PIPE.
 //give the array the same name as the pipe instantiations above.

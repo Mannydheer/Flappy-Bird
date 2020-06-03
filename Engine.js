@@ -1,7 +1,7 @@
 class Engine {
   constructor(gameApp) {
-    this.player = new Player(GAME_WIDTH, GAME_HEIGHT);
-    this.gravity = 0.9;
+    this.gravity = 0.1;
+    this.player = new Player(GAME_WIDTH, GAME_HEIGHT, this.gravity);
     this.gameRunning = true;
     this.scoreCounter = 0;
     this.gameOverImage = document.getElementById("gameover");
@@ -49,6 +49,7 @@ class Engine {
   gameOver(ctx) {
     ctx.drawImage(this.gameOverImage, 0, 0);
   }
+  restartButton() {}
 
   //Just using a simple boolean is not efficient because it doesn't take into account the different
   //speeds that a computer can run the program.

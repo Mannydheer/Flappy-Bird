@@ -1,7 +1,7 @@
 ### Flappy Bird.
 
 ```
-Simple flappy bird game.
+Simple flappy bird game in vanilla JS.
 ```
 
 ```
