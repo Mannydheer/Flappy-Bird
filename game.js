@@ -3,6 +3,8 @@ let requestAnimationFrame =
   window.mozRequestAnimationFrame ||
   window.webkitRequestAnimationFrame ||
   window.msRequestAnimationFrame;
+
+
 let canvas = document.getElementById("gameCanvas");
 //rendering context to draw to the element.
 let ctx = canvas.getContext("2d");
@@ -19,6 +21,7 @@ let player = gameEngine.player;
 let lastTime;
 //background.
 let backgroundImage = document.getElementById("background");
+
 const gameLoop = (timeStamp) => {
   ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
   //backgorund.
@@ -27,9 +30,10 @@ const gameLoop = (timeStamp) => {
   //time for
   let deltaTime = timeStamp - lastTime;
   lastTime = timeStamp;
-  //PIPE.
 
+  // draws the player
   player.draw(ctx);
+  // update gravity
   player.updateGravity(deltaTime, gameEngine.gravity);
   pipe.drawPipes(ctx);
   pipe.updatePipeMovement(deltaTime);
@@ -42,6 +46,7 @@ const gameLoop = (timeStamp) => {
 
   //COLLISIONS.
   handleCollisions();
+  // controller for the game if running 
   if (gameEngine.gameRunning) {
     requestAnimationFrame(gameLoop);
   } else {
@@ -50,7 +55,9 @@ const gameLoop = (timeStamp) => {
     handleRestartButton();
   }
 };
+// calls the gameLoop function
 requestAnimationFrame(gameLoop);
+
 //------------------------EVENTLISTENER---------------
 //FUNCTION TRIGGERED FROM EVENT LISTENER.
 const handleKeyEvent = (e) => {
@@ -87,7 +94,6 @@ const handleCollisions = () => {
     }
     //When the X position is equal to the any of the pipes, it will increment by one.
     else if (player.position.x === pipe.position.x) {
-      console.log("hi");
       gameEngine.updateScoreCounter();
     }
   });
