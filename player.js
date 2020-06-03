@@ -31,8 +31,11 @@ class Player {
     // boundary for x.
     if (this.position.y < GAME_HEIGHT - 50) {
       this.velocity += gravity;
+      console.log(this.velocity);
       (this.position.y += this.velocity) / deltaTime;
-    } else {
+    } else if (this.position.y == GAME_HEIGHT - 50) {
+      this.position.y = GAME_HEIGHT - 50;
+    } else if (this.position.y == 50) {
       this.position.y = GAME_HEIGHT - 50;
     }
     //add error for when he passes the point.
