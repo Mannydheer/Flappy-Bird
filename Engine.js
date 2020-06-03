@@ -21,6 +21,7 @@ class Engine {
   }
 
   updateScoreCounter() {
+    console.log("ths");
     this.scoreCounter++;
   }
   getPreviousScore() {
@@ -39,7 +40,7 @@ class Engine {
   updateLocalStorage() {
     let localStorageArray = JSON.parse(localStorage.getItem("score"));
     let array = [];
-    if (localStorageArray.length > 0) {
+    if (localStorageArray) {
       array.push(...localStorageArray, this.scoreCounter);
     } else {
       array = [this.scoreCounter];

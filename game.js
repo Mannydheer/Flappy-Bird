@@ -28,7 +28,6 @@ const gameLoop = (timeStamp) => {
   let deltaTime = timeStamp - lastTime;
   lastTime = timeStamp;
   //PIPE.
-  console.log(player.velocity);
 
   player.draw(ctx);
   player.updateGravity(deltaTime, gameEngine.gravity);
@@ -88,6 +87,7 @@ const handleCollisions = () => {
     }
     //When the X position is equal to the any of the pipes, it will increment by one.
     else if (player.position.x === pipe.position.x) {
+      console.log("hi");
       gameEngine.updateScoreCounter();
     }
   });

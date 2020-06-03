@@ -41,7 +41,7 @@ class Pipe extends Engine {
     );
   }
   updatePipeMovement(deltaTime) {
-    (this.position.x -= 2) / deltaTime;
+    (this.position.x -= 1) / deltaTime;
     if (this.position.x <= 0) {
       this.createPipe();
     }
