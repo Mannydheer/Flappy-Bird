@@ -22,7 +22,7 @@ const gameLoop = (timeStamp) => {
   //time for
   let deltaTime = timeStamp - lastTime;
   lastTime = timeStamp;
-  //make out player.
+  //PIPE.
   player.draw(ctx);
   player.updateGravity(deltaTime, gameEngine.gravity);
   pipe.drawPipes(ctx);
@@ -79,7 +79,6 @@ const handleCollisions = () => {
     }
   });
 };
-
 //------------------RESTART-----------------
 const restartGame = () => {
   gameEngine.restartGame();

@@ -18,10 +18,29 @@ class Engine {
     this.scoreCounter++;
   }
   getPreviousScore() {
-    return localStorage.getItem("score");
+    let getItem = JSON.parse(localStorage.getItem("score"));
+    if (!getItem) {
+      throw new Error("Nothing in local storage.");
+    }
+    let max = 0;
+    getItem.forEach((item) => {
+      if (item > max) {
+        max = item;
+      }
+    });
+    return max;
   }
   updateLocalStorage() {
-    localStorage.setItem("score", this.scoreCounter);
+    let localStorageArray = JSON.parse(localStorage.getItem("score"));
+    let array = [];
+    if (localStorageArray.length > 0) {
+      array.push(...localStorageArray, this.scoreCounter);
+    } else {
+      array = [this.scoreCounter];
+    }
+    console.log(array);
+
+    localStorage.setItem("score", JSON.stringify(array));
   }
 
   //Just using a simple boolean is not efficient because it doesn't take into account the different
