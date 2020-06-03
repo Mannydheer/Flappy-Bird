@@ -1,5 +1,5 @@
 class Player {
-  constructor(GAME_WIDTH, GAME_HEIGHT, gravity) {
+  constructor  (GAME_WIDTH, GAME_HEIGHT, gravity) {
     (this.width = 50),
       (this.height = 50),
       (this.position = {
@@ -13,6 +13,7 @@ class Player {
   }
 
   draw(ctx) {
+    console.log(gameEngine.scoreCounter)
     //this will make our player.
     ctx.drawImage(
       this.playerImage,
@@ -32,7 +33,11 @@ class Player {
     if (this.position.y < GAME_HEIGHT - 50 && this.position.y > 0) {
       this.velocity += gravity;
       (this.position.y += this.velocity) / deltaTime;
-    } else {
+    }
+    else{
+      // end the game once player crosses the borders
+      // gameEngine.end = false;
+      gameEngine.endGame();
     }
     //add error for when he passes the point.
   }

@@ -11,8 +11,14 @@ class Engine {
   drawBackground(ctx, backgroundImage) {
     ctx.drawImage(backgroundImage, 0, 0, 200, 500, 0, 0, 700, 500);
   }
-
+  
+  // change constructor property using setter
+  set end(bool){
+    this.gameRunning = bool;
+  }
+  // change constructor property using function 
   endGame() {
+    // request animation will stop running 
     this.gameRunning = false;
   }
 
@@ -21,7 +27,6 @@ class Engine {
   }
 
   updateScoreCounter() {
-    console.log("ths");
     this.scoreCounter++;
   }
   getPreviousScore() {
