@@ -1,9 +1,13 @@
 class Engine {
   constructor() {
     this.player = new Player(GAME_WIDTH, GAME_HEIGHT);
-    this.gravity = 0.5;
+    this.gravity = 1;
     this.gameRunning = true;
     this.scoreCounter = 0;
+  }
+
+  drawBackground(ctx, backgroundImage) {
+    ctx.drawImage(backgroundImage, 0, 0, 200, 500, 0, 0, 700, 500);
   }
 
   pauseGame() {

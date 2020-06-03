@@ -14,20 +14,32 @@ class Pipe extends Engine {
 
   //display background.
   drawPipes(ctx) {
-    ctx.fillStyle = "green";
-    //top pipe
-    ctx.fillRect(
-      this.position.x,
-      this.position.y,
+    let image = document.getElementById("bottomPipe");
+    let topImage = document.getElementById("topPipe");
+
+    ctx.drawImage(
+      image,
+      0,
+      0,
       this.pipeDimensions.width,
-      this.pipeDimensions.topPipe
-    );
-    //bottom pipe.
-    ctx.fillRect(
+      250,
       this.position.x,
       GAME_HEIGHT,
-      this.pipeDimensions.width,
+      50,
       this.pipeDimensions.bottomPipe
+    );
+    //rotate.
+
+    ctx.drawImage(
+      topImage,
+      0,
+      0,
+      this.pipeDimensions.width,
+      250,
+      this.position.x,
+      this.position.y,
+      50,
+      this.pipeDimensions.topPipe
     );
   }
   updatePipeMovement(deltaTime) {

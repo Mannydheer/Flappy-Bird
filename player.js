@@ -10,9 +10,19 @@ class Player {
 
   draw(ctx) {
     //this will make our player.
-    ctx.fillStyle = "black";
-    //creating player.
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    let playerImage = document.getElementById("player");
+
+    ctx.drawImage(
+      playerImage,
+      0,
+      0,
+      this.width,
+      25,
+      this.position.x,
+      this.position.y,
+      100,
+      this.height
+    );
   }
 
   updateGravity(deltaTime, gravity) {

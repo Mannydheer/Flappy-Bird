@@ -17,8 +17,14 @@ let player = gameEngine.player;
 //GET PREVIOUS SCORE.
 //-------------------GAME LOOP-------------------
 let lastTime;
+//background.
+let backgroundImage = document.getElementById("background");
+
 const gameLoop = (timeStamp) => {
   ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+  //backgorund.
+  gameEngine.drawBackground(ctx, backgroundImage);
+
   //time for
   let deltaTime = timeStamp - lastTime;
   lastTime = timeStamp;
