@@ -27,7 +27,7 @@ class Pipe extends Engine {
       50,
       this.pipeDimensions.bottomPipe
     );
-
+      
     ctx.drawImage(
       this.topPipeImage,
       0,

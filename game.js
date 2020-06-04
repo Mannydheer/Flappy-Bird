@@ -18,8 +18,13 @@ let player = new Player(GAME_WIDTH, GAME_HEIGHT, gameEngine.gravity);
 //GET PREVIOUS SCORE.
 //-------------------GAME LOOP-------------------
 let lastTime;
+
 //background.
 let backgroundImage = document.getElementById("background");
+ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+gameEngine.drawBackground(ctx, backgroundImage);
+
+ctx.fillRect(handleStartGame);
 
 const gameLoop = (timeStamp) => {
   ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
@@ -54,8 +59,13 @@ const gameLoop = (timeStamp) => {
     handleRestartButton();
   }
 };
-// calls the gameLoop function
-requestAnimationFrame(gameLoop);
+
+const startGame = () => {
+  // calls the gameLoop function
+  requestAnimationFrame(gameLoop);
+};
+
+
 
 //------------------------EVENTLISTENER---------------
 //FUNCTION TRIGGERED FROM EVENT LISTENER.
@@ -97,6 +107,15 @@ const handleCollisions = () => {
     }
   });
 };
+//------------------START GAME-----------------
+
+// const handleStartGame = () => {
+  let start = document.createElement("button");
+  start.id = "start";
+  canvas.appendChild(start);
+  start.innerHTML = "START";
+  start.addEventListener("click", startGame);
+// };
 
 //------------------RESTART-----------------
 const restartGame = () => {
