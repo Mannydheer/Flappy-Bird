@@ -42,6 +42,6 @@ class Player extends Engine {
   }
 
   moveUp() {
-    this.velocity -= this.fly * 0.5;
+    this.velocity -= this.fly * 0.5    ;
   }
 }

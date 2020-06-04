@@ -1,11 +1,11 @@
 .canvas {
   border: solid 10px black;
 }
-#canvas_pTag{
+#canvas_pTag {
   text-align: center;
 }
 #restart {
-  border: solid 1px black;  
+  border: solid 1px black;
   font-size: 2em;
   border-radius: 25px;
   cursor: pointer;
@@ -16,18 +16,30 @@
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-#scoreBoard{
+#scoreBoard {
   text-align: center;
   font-size: 2em;
 }
-#previousScore{
+#previousScore {
   text-align: center;
   font-size: 2em;
 }
 
 #bg-message {
-  width: 184px; height: 267px;
-  background: url('css_sprites.png') -10px -10px;
+  width: 184px;
+  height: 267px;
+  background: url("css_sprites.png") -10px -10px;
 }
 
-
+#start {
+  border: solid 1px black;
+  font-size: 4em;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 2em;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}

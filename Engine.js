@@ -5,6 +5,7 @@ class Engine {
     this.scoreCounter = 0;
     this.gameOverImage = document.getElementById("gameover");
     this.gameApp = gameApp;
+    this.startGame = false;
   }
 
   drawBackground(ctx, backgroundImage) {
@@ -54,7 +55,9 @@ class Engine {
   gameOver(ctx) {
     ctx.drawImage(this.gameOverImage, 0, 0);
   }
-  restartButton() {}
+  startGameFunction() {
+    this.startGame = true;
+  }
 
   //Just using a simple boolean is not efficient because it doesn't take into account the different
   //speeds that a computer can run the program.
